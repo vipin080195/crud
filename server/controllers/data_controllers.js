@@ -1,4 +1,6 @@
 const data = require('../models/data_models');
+// const ObjectId = require('mongoose/lib/types/objectid');
+
 
 exports.getAllData = (req, res) => {
     data.find()
@@ -19,4 +21,25 @@ exports.deleteData = (req, res) => {
         .then((data) => res.json({ message: 'Data deleted successfully', data }))
         .catch((err) => res.status(404)
             .json({ message: 'Failed to delete data', error: err.message }));
+}
+// exports.updateData =async (req,res)=>{
+//     try{
+//       console.log(req.body)
+//      let upateData = await data.findByIdAndUpdate(req.params.id,req.body.updatedata)
+//      return res.status(200).json({
+//       Success: 'True',
+//       upadated:upateData,
+//       Message: 'Data inserted succesfully',
+//       SuccessCode: 200,
+//     });
+//     } catch(error){
+//      return res.send(error)
+//     }
+//   }
+exports.updateData = (req, res) => {
+    // console.log("update is running")
+    data.findByIdAndUpdate(req.params.id,req.body.updatedata)
+        .then((data) => res.json({ message: 'Data update successfully', data }))
+        .catch((err) => res.status(404)
+            .json({ message: 'Failed to update data', error: err.message }));
 }
